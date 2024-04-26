@@ -16,19 +16,21 @@
     <script>
         /* Completar el código jQuery aquí */
         $(document).ready(function(){
-        var apiKey = '21acf2341d296ddd07c04e4b9e14b1c3';
-        
-        $.ajax({
-          url: 'http://api.openweathermap.org/data/2.5/weather?q=Sevilla&appid=' + apiKey + '&units=metric',
-          type: 'GET',
-          success: function(response){
-            var temperature = response.main.temp;
-            $("#objetivo").text("La temperatura en Sevilla es " + temperature + "°C.");
-          },
-          error: function(error){
-            $("#objetivo").text("Error al obtener la temperatura: " + error);
-          }
+        let apiKey = 'e4a42d8c1f0fed65fe3f9e410c6734d4';
+        let url = 'https://api.openweathermap.org/data/2.5/weather?';
+        let latitud = "37.38283";
+        let longitud = "-5.97317";
+        let url_completa = url + "lat="+latitud+"&lon"+longitud+"&units=metric&appid="+apiKey;
+
+        $.get(url_completa).done(function(datos){
+            console.log(datos.main.temp);
+            $("#objetivo").text("La temperatura en sevilla es de " +datos.main.temp+" ºCelsiuss")
+        })
+        .fail(function() {
+            $("#objetivo").text("Ha habido un error en la llamada del servidor")
         });
+
+        
       });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
